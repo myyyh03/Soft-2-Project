@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/HomeScreen.dart';
+import 'package:shopping_app/components/navbar.dart';
 class HomeScreen extends StatelessWidget {
       HomeScreen({super.key});
   List imglist = [
@@ -110,7 +111,7 @@ class HomeScreen extends StatelessWidget {
           ),
           ),
         ),
-
+        bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
