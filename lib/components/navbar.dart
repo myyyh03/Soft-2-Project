@@ -28,11 +28,18 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           case 1:
             Navigator.push(context, MaterialPageRoute(builder: (context) => Cart()));            break;
           case 2:
+<<<<<<< HEAD
             Navigator.push(context, MaterialPageRoute(builder: (context) => Favorite()));
             break;
           // case 3:
           //   Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));            break;
         }
+=======
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));             break;
+        //  case 3:
+        //    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));            break;
+         }
+>>>>>>> a06e3dc7a0cc553d7bb34293b735e862e9b37f8d
       },
       selectedItemColor: Colors.black, // Change the color of the selected item
       items: [
@@ -45,6 +52,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           label: 'Cart',
         ),
         BottomNavigationBarItem(
+<<<<<<< HEAD
           icon: Icon(Icons.favorite, color: Colors.blue),
           label: 'Favorite',
         ),
@@ -56,3 +64,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     );
   }
 }
+=======
+          icon: Icon(Icons.person, color: Colors.blue),
+          label: 'Profile',
+        ),
+         // BottomNavigationBarItem(
+         //   icon: Icon(Icons.person, color: Colors.blue),
+         //   label: 'Profile',
+         // ),
+      ],
+    );
+  }
+}
+>>>>>>> a06e3dc7a0cc553d7bb34293b735e862e9b37f8d
