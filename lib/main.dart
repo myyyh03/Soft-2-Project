@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/HomeScreen.dart';
 
+import 'register_page.dart';
+
 void main() {
   runApp( MyApp());
 }
@@ -10,7 +12,7 @@ void main() {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: RegisterPage(),
     );
   }
 }

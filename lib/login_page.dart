@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 // You might need to import this for navigation
 import 'package:flutter/services.dart';
 
+import 'register_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -108,7 +110,8 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Handle login button press after validation
-                      print('Login Button Pressed with Email: $_email, Password: $_password');
+                      print(
+                          'Login Button Pressed with Email: $_email, Password: $_password');
                       // You can now access the entered email and password for further processing
                     }
                   },
@@ -126,10 +129,14 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     Text('Don\'t have an account?'),
                     SizedBox(width: 10.0),
-                    TextButton( // Use TextButton for clickable text
+                    TextButton(
+                      // Use TextButton for clickable text
                       onPressed: () {
                         // Navigate to the register page
-                        Navigator.pushNamed(context, '/register'); // Assuming you have a register page with route name '/register'
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RegisterPage()),
+                        ); // Assuming you have a register page with route name '/register'
                       },
                       child: Text(
                         'Register',

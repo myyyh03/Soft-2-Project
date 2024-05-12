@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,10 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset(
-                'assets/illustration.png', // Replace this 
-                height: 200.0,
-              ),
+              // Image.asset(
+              //   'assets/illustration.png', // Replace this
+              //   height: 200.0,
+              // ),
               SizedBox(height: 20.0),
               Text(
                 'Please Register to Continue',
@@ -105,8 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                  }
+                  if (_formKey.currentState?.validate() ?? false) {}
                 },
                 child: Text('Register'),
                 style: ElevatedButton.styleFrom(
@@ -125,6 +125,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextButton(
                     onPressed: () {
                       // Handle login navigation
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginPage()),
+                      );
                     },
                     child: Text(
                       'Login',
