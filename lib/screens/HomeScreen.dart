@@ -161,10 +161,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProductDetailsPage(
-                              name: products[index]["name"]!,
-                              description: products[index]["description"]!,
-                              imagePath: products[index]["imagePath"]!,
-                              price: products[index]["price"]!,
+                              name: products[index]["name"],
+                              description: products[index]["desc"],
+                              imagePath: products[index]["imag"],
+                              price: "${products[index]["price"]} EGP",
                             ),
                           ),
                         );
@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             ClipRRect(
                               child: Image.asset(
-                                products[index]["imagePath"]!,
+                                products[index]["image"],
                                 width: MediaQuery.of(context).size.width,
                                 height: 250,
                                 fit: BoxFit.cover,
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              products[index]["name"]!,
+                              products[index]["name"],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -195,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 5),
                             Text(
-                              products[index]["price"]!,
+                              "${products[index]["price"]} EGP",
                               style: TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold,

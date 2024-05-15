@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // You might need to import this for navigation
 import 'package:flutter/services.dart';
+import 'package:shopping_app/screens/HomeScreen.dart';
 
 import 'register_page.dart';
 
@@ -110,6 +111,10 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Handle login button press after validation
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
                       print(
                           'Login Button Pressed with Email: $_email, Password: $_password');
                       // You can now access the entered email and password for further processing
