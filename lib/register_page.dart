@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:shopping_app/database/database_handler.dart';
+import 'package:shopping_app/database/tables_classes.dart';
+import 'package:sqflite/sqflite.dart';
 import 'login_page.dart';
 
 void main() {
@@ -21,6 +25,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -50,6 +55,23 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  hintText: 'Name',
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20.0),
+              TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   hintText: 'Email',
@@ -59,7 +81,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 validator: (value) {
-                  if (value?.isEmpty ?? true) {
+                  if (value?.isEmpty ?? true && EmailValidator.validate(value!)) {
                     return 'Please enter your email';
                   }
                   return null;
@@ -105,8 +127,23 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               SizedBox(height: 20.0),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {}
+                onPressed: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    String name = _nameController.text;
+                    String mail = _emailController.text;
+                    String pass = _passwordController.text;
+                    DataBaseHandler db = new DataBaseHandler();
+                    user u = new user(id: null , name: name , mail: mail , pass: pass);
+                    if(await db.getUserByMail(mail) == null){
+                      db.insertUser(u);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginPage()),
+                        );
+                    }
+                    else return;
+                  }
                 },
                 child: Text('Register'),
                 style: ElevatedButton.styleFrom(

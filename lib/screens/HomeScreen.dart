@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/components/navbar.dart';
+import 'package:shopping_app/database/database_handler.dart';
 import 'package:shopping_app/screens/JacketsPage.dart';
 import 'package:shopping_app/screens/product_details.dart';
+import 'package:shopping_app/shared_pref.dart';
 import '../components/list.dart';
 import 'BagsPage.dart';
 import 'PantsPage.dart';
 import 'ShirtsPage.dart';
+import 'package:shopping_app/shared_pref.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -20,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DataBaseHandler db = new DataBaseHandler();
+    int? id = sharedPref.id;
     return Scaffold(
       bottomNavigationBar: CustomBottomNavigationBar(),
       backgroundColor: isDarkMode ? Colors.black : Colors.white,
@@ -161,10 +166,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => ProductDetailsPage(
-                              name: products[index]["name"]!,
-                              description: products[index]["description"]!,
-                              imagePath: products[index]["imagePath"]!,
-                              price: products[index]["price"]!,
+                              name: products[index]["name"],
+                              description: products[index]["desc"],
+                              imagePath: products[index]["imag"],
+                              price: "${products[index]["price"]} EGP",
                             ),
                           ),
                         );
@@ -178,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             ClipRRect(
                               child: Image.asset(
-                                products[index]["imagePath"]!,
+                                products[index]["image"],
                                 width: MediaQuery.of(context).size.width,
                                 height: 250,
                                 fit: BoxFit.cover,
@@ -186,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              products[index]["name"]!,
+                              products[index]["name"],
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -195,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             SizedBox(height: 5),
                             Text(
-                              products[index]["price"]!,
+                              "${products[index]["price"]} EGP",
                               style: TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold,
@@ -206,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ElevatedButton(
                               onPressed: () {
                                 // Implement add to cart function
+                                db.insertCart(id!,products[index][id]);
                               },
                               child: Text(
                                 "Add To Cart",

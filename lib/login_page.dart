@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 // You might need to import this for navigation
-import 'package:flutter/services.dart';
+import 'package:shopping_app/database/database_handler.dart';
+import 'package:shopping_app/database/tables_classes.dart';
+import 'package:shopping_app/screens/HomeScreen.dart';
+import 'package:shopping_app/shared_pref.dart';
 
 import 'register_page.dart';
 
@@ -27,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String _email = "";
   String _password = "";
+  String ErrorMsg = "";
 
   @override
   Widget build(BuildContext context) {
@@ -89,31 +93,41 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        // Handle forgot password
-                        print('Forgot Password Pressed');
-                      },
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                    ),
-                  ],
-                ),
+                // SizedBox(height: 10.0),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.end,
+                //   children: <Widget>[
+                //     TextButton(
+                //       onPressed: () {
+                //         // Handle forgot password
+                //         print('Forgot Password Pressed');
+                //       },
+                //       child: Text(
+                //         'Forgot password?',
+                //         style: TextStyle(color: Colors.blue),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 20.0),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       // Handle login button press after validation
-                      print(
-                          'Login Button Pressed with Email: $_email, Password: $_password');
-                      // You can now access the entered email and password for further processing
-                    }
+                      DataBaseHandler db = new DataBaseHandler();
+                      user? u = await db.getUserByMail(_email);
+                      if(u == null || u.pass != _password){
+                        setState(() {
+                          ErrorMsg =  "Invalid Mail or Password";
+                        });
+                        return;
+                      }    
+                      sharedPref.loginUser(u.id!); 
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      ); 
+                    }       
                   },
                   child: Text('Login'),
                   style: ElevatedButton.styleFrom(
@@ -143,6 +157,15 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(color: Colors.blue),
                       ),
                     ),
+                    
+                  ],
+                ),
+                SizedBox(height: 20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('$ErrorMsg', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
+                    SizedBox(width: 20.0),
                   ],
                 ),
               ],
@@ -153,3 +176,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+

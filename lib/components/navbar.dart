@@ -30,7 +30,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));             break;
         //  case 3:
         //    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));            break;
-         }
+        }
       },
       selectedItemColor: Colors.black, // Change the color of the selected item
       items: [
